@@ -28,6 +28,12 @@ async function run() {
       res.send(services);
     });
 
+    app.post("/services", async (req, res) => {
+      const addService = req.body;
+      const result = await serviceCollection.insertOne(addService);
+      res.send(result);
+    });
+
     app.get("/allServices", async (req, res) => {
       const query = {};
       const cursor = serviceCollection.find(query);
@@ -60,6 +66,7 @@ async function run() {
       const service = await reviewCollection.findOne(query);
       res.send(service);
     });
+
     app.post("/reviews", async (req, res) => {
       const order = req.body;
       const result = await reviewCollection.insertOne(order);
